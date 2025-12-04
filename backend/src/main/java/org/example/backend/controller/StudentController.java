@@ -15,6 +15,7 @@ import org.example.backend.service.StudentService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -105,9 +106,13 @@ public class StudentController {
             @ApiResponse(responseCode = "400", description = "Invalid file format"),
             @ApiResponse(responseCode = "401", description = "Unauthorized")
     })
-    @PostMapping("/import")
+    @PostMapping(
+            value = "/import",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
     public ResponseEntity<Void> importStudents(@RequestParam("file") MultipartFile file) {
         studentService.importStudents(file);
         return ResponseEntity.ok().build();
     }
+
 }
