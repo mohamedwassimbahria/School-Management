@@ -26,30 +26,13 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
-
     private final StudentRepository studentRepository;
     private final StudentMapper studentMapper;
 
     @Override
     public Page<StudentDto> getAllStudents(String searchTerm, Level level, Pageable pageable) {
-        if (searchTerm != null && !searchTerm.isEmpty() && level != null) {
-            Long id = null;
-            try {
-                id = Long.parseLong(searchTerm);
-            } catch (NumberFormatException e) {
-                // Ignore
-            }
-            return studentRepository.findByIdAndLevelOrUsernameContainingIgnoreCaseAndLevel(id, level, searchTerm, level, pageable).map(studentMapper::toDto);
-        } else if (searchTerm != null && !searchTerm.isEmpty()) {
-            Long id = null;
-            try {
-                id = Long.parseLong(searchTerm);
-            } catch (NumberFormatException e) {
-                // Ignore
-            }
-            return studentRepository.findByIdOrUsernameContainingIgnoreCase(id, searchTerm, pageable).map(studentMapper::toDto);
-        } else if (level != null) {
-            return studentRepository.findByLevel(level, pageable).map(studentMapper::toDto);
+        if ((searchTerm != null && !searchTerm.isEmpty()) || level != null) {
+            return studentRepository.findBySearchTermAndLevel(searchTerm, level, pageable).map(studentMapper::toDto);
         } else {
             return studentRepository.findAll(pageable).map(studentMapper::toDto);
         }
