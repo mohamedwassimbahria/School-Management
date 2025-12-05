@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -80,7 +81,7 @@ class AdminServiceImplTest {
 
         adminService.login(request);
 
-        verify(authenticationManager).authenticate(any());
+        verify(authenticationManager).authenticate(new UsernamePasswordAuthenticationToken("admin", "password"));
         verify(jwtUtil).generateToken(userDetails);
     }
 }
