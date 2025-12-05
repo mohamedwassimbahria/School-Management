@@ -65,3 +65,31 @@ rate-limit:
     capacity: 5
     refill-rate: 5
     refill-duration: 60 # seconds
+
+
+# Health Probes
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+# CORS Configuration
+cors:
+  allowed-origins:
+    - http://localhost:4200
+    - http://localhost
+
+# Bucket4j Rate Limiting
+bucket4j:
+  enabled: true
+  filter-method: servlet
+  filters:
+    - cache-name: buckets
+      filter-order: 1
+      url: ^/api/admin/login.*
+      rate-limits:
+        - bandwidths:
+            - capacity: 5
+              time: 1
+              unit: minutes

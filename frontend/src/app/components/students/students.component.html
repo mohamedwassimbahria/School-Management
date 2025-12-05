@@ -1,0 +1,74 @@
+<div>
+  <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+  <h2>Students</h2>
+  <form [formGroup]="searchForm" (ngSubmit)="search()">
+    <mat-form-field>
+      <input matInput formControlName="username" placeholder="Search by username">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Filter by level</mat-label>
+      <mat-select formControlName="level">
+        <mat-option *ngFor="let level of levels" [value]="level">{{ level }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Search</button>
+  </form>
+
+  <table mat-table [dataSource]="students">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let student"> {{ student.id }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef> Username </th>
+      <td mat-cell *matCellDef="let student"> {{ student.username }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="level">
+      <th mat-header-cell *matHeaderCellDef> Level </th>
+      <td mat-cell *matCellDef="let student"> {{ student.level }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let student">
+        <button mat-icon-button (click)="edit(student)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="delete(student.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="totalPages * size"
+                 [pageSize]="size"
+                 (page)="page = $event.pageIndex; loadStudents()">
+  </mat-paginator>
+
+  <form [formGroup]="studentForm" (ngSubmit)="save()">
+    <h3>{{ editing ? 'Edit' : 'Add' }} Student</h3>
+    <input type="hidden" formControlName="id">
+    <mat-form-field>
+      <input matInput formControlName="username" placeholder="Username">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Level</mat-label>
+      <mat-select formControlName="level">
+        <mat-option *ngFor="let level of levels" [value]="level">{{ level }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">{{ editing ? 'Update' : 'Create' }}</button>
+    <button mat-raised-button type="button" (click)="reset()">Cancel</button>
+  </form>
+
+  <div>
+    <button mat-raised-button (click)="export()">Export CSV</button>
+    <input type="file" (change)="import($event)">
+  </div>
+</div>

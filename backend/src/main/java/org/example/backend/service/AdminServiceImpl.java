@@ -15,10 +15,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 @RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
@@ -39,9 +43,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public AuthenticationResponse login(AuthenticationRequest request) {
+        logger.info("Attempting to authenticate user: {}", request.getUsername());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
+        logger.info("User authenticated successfully: {}", request.getUsername());
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails);
         return new AuthenticationResponse(jwt);
