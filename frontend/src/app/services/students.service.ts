@@ -11,20 +11,20 @@ export class StudentService {
 
   constructor(private http: HttpClient) { }
 
-  getStudents(params: any): Observable<any> {
+getStudents(params: any): Observable<any> {
     let httpParams = new HttpParams();
-    if (params.username) {
-      httpParams = httpParams.append('username', params.username);
+
+    if (params.searchTerm) {
+      httpParams = httpParams.append('searchTerm', params.searchTerm);
     }
+
     if (params.level) {
       httpParams = httpParams.append('level', params.level);
     }
-    if (params.page) {
-      httpParams = httpParams.append('page', params.page);
-    }
-    if (params.size) {
-      httpParams = httpParams.append('size', params.size);
-    }
+
+    httpParams = httpParams.append('page', params.page);
+    httpParams = httpParams.append('size', params.size);
+
     return this.http.get(this.apiUrl, { params: httpParams });
   }
 

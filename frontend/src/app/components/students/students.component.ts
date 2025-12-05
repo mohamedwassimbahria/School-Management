@@ -49,9 +49,10 @@ export class StudentsComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.searchForm = this.fb.group({
-      username: [''],
+      searchTerm: [''],
       level: ['']
     });
+
     this.studentForm = this.fb.group({
       id: [null],
       username: [''],

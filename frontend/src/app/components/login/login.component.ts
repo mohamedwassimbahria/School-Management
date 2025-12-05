@@ -13,12 +13,33 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
   credentials = { username: '', password: '' };
+  errorMessage = '';
+  loading = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   login(): void {
-    this.authService.login(this.credentials).subscribe(() => {
-      this.router.navigate(['/students']);
+    this.errorMessage = '';
+    this.loading = true;
+
+    this.authService.login(this.credentials).subscribe({
+      next: () => {
+        this.loading = false;
+        console.log('Login successful, navigating to students page');
+        this.router.navigate(['/students']);
+      },
+      error: (error) => {
+        this.loading = false;
+        console.error('Login error:', error);
+        
+        if (error.status === 401) {
+          this.errorMessage = 'Invalid username or password';
+        } else if (error.status === 0) {
+          this.errorMessage = 'Cannot connect to server. Please check if the backend is running.';
+        } else {
+          this.errorMessage = 'An error occurred. Please try again.';
+        }
+      }
     });
   }
 }

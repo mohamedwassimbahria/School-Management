@@ -1,0 +1,273 @@
+/* student-management.component.css */
+
+/* Container principal */
+.student-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #f5f7fa;
+  min-height: 100vh;
+}
+
+/* ===== HEADER SECTION ===== */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.header-section h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+}
+
+/* ===== SEARCH & FILTER SECTION ===== */
+.search-filter-section {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.search-form {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.search-form mat-form-field {
+  flex: 1;
+  min-width: 250px;
+}
+
+.search-form button {
+  margin-bottom: 1.25em;
+}
+
+/* ===== TABLE SECTION ===== */
+.table-section {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-header-cell {
+  background: #f8fafc;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  padding: 16px;
+}
+
+td.mat-cell {
+  padding: 16px;
+  color: #334155;
+}
+
+tr.mat-row:hover {
+  background: #f8fafc;
+  transition: background 0.2s;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-buttons button {
+  min-width: auto;
+  padding: 6px;
+}
+
+/* Pagination */
+mat-paginator {
+  border-top: 1px solid #e2e8f0;
+}
+
+/* ===== ADD/EDIT STUDENT SECTION ===== */
+.student-form-section {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.student-form-section h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0 0 24px 0;
+}
+
+.student-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ===== EXPORT SECTION ===== */
+.export-section {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.export-section h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0 0 16px 0;
+}
+
+.export-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.file-input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.file-input-wrapper input[type="file"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.file-input-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #f1f5f9;
+  color: #475569;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.file-input-label:hover {
+  background: #e2e8f0;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .student-container {
+    padding: 16px;
+  }
+
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-form mat-form-field {
+    min-width: 100%;
+  }
+
+  .search-form button {
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .student-form {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}
+
+/* ===== UTILITY CLASSES ===== */
+.mat-elevation-z2 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.text-muted {
+  color: #64748b;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mt-2 {
+  margin-top: 16px;
+}
+
+/* ===== MATERIAL OVERRIDES ===== */
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #f8fafc;
+  border-radius: 6px;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #cbd5e0;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #5a67d8;
+}
+
+::ng-deep .mat-button-base {
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+}
+
+::ng-deep .mat-raised-button:not([class*=mat-elevation-z]) {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+::ng-deep .mat-table {
+  background: transparent;
+}
+
+::ng-deep .mat-paginator {
+  background: transparent;
+}

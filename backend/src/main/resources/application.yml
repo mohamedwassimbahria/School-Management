@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:schooldb}?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME:root}
-    password:  ""
+    password: ""
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10
@@ -15,7 +15,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: false
+    show-sql: true  # Activé pour debug
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
@@ -31,12 +31,12 @@ spring:
 # JWT Configuration
 jwt:
   secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
-  expiration: ${JWT_EXPIRATION:86400000} # 24 hours
+  expiration: ${JWT_EXPIRATION:86400000}
 
 # Swagger/OpenAPI Configuration
 springdoc:
   api-docs:
-    path: /api-docs
+    path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
     operations-sorter: method
@@ -46,9 +46,10 @@ springdoc:
 logging:
   level:
     root: INFO
-    com.school: DEBUG
-    org.springframework.security: INFO
+    org.example.backend: DEBUG
+    org.springframework.security: DEBUG
     org.hibernate.SQL: DEBUG
+    org.springframework.web: DEBUG
 
 # Server Configuration
 server:
@@ -59,37 +60,9 @@ server:
     include-stacktrace: on_param
     include-exception: false
 
-# Rate Limiting
-rate-limit:
-  login:
-    capacity: 5
-    refill-rate: 5
-    refill-duration: 60 # seconds
-
-
 # Health Probes
 management:
   endpoint:
     health:
       probes:
         enabled: true
-
-# CORS Configuration
-cors:
-  allowed-origins:
-    - http://localhost:4200
-    - http://localhost
-
-# Bucket4j Rate Limiting
-bucket4j:
-  enabled: true
-  filter-method: servlet
-  filters:
-    - cache-name: buckets
-      filter-order: 1
-      url: ^/api/admin/login.*
-      rate-limits:
-        - bandwidths:
-            - capacity: 5
-              time: 1
-              unit: minutes
