@@ -26,6 +26,7 @@ import java.io.IOException;
 @RequestMapping("/api/students")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class StudentController {
 
     private final StudentService studentService;
